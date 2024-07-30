@@ -25,6 +25,12 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+console.log(`Connecting to MySQL with the following parameters:`);
+console.log(`Host: ${process.env.MYSQL_HOST}`);
+console.log(`User: ${process.env.MYSQL_USER}`);
+console.log(`Database: ${process.env.MYSQL_DATABASE}`);
+
+
 
 
 // MySQL connection
