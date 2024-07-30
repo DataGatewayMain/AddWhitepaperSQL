@@ -16,14 +16,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // MySQL connection
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
+    host: process.env.MYSQL_HOST || 'localhost',
+    user: process.env.MYSQL_USER || 'root',
     // password: 'your_mysql_password',
-    database: 'files',
+    database: process.env.MYSQL_DATABASE || 'files',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
+
+
+
+// MySQL connection
+// const pool = mysql.createPool({
+//     host: process.env.MYSQL_HOST || 'localhost',
+//     user: process.env.MYSQL_USER || 'root',
+//     password: process.env.MYSQL_PASSWORD || '',
+//     database: process.env.MYSQL_DATABASE || 'files',
+//     waitForConnections: true,
+//     connectionLimit: 10,
+//     queueLimit: 0
+// });
 
 
 
