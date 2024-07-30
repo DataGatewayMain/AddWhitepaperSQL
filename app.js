@@ -46,7 +46,17 @@ app.use((req, res, next) => {
     next();
 });
 
-// Route to get data from MySQL
+
+// Test route to check database connectivity
+app.get('/test-db', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT 1');
+        res.json({ message: 'Database connection successful', data: rows });
+    } catch (err) {
+        console.error('Error connecting to the database:', err);
+        res.status(500).json({ message: 'Database connection failed', error: err.message });
+    }
+});
 
 // Route to get data from MySQL
 app.get('/data', async (req, res) => {
