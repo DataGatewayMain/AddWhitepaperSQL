@@ -15,34 +15,26 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MySQL connection
-const pool = mysql.createPool({
-    host: process.env.MYSQL_HOST || 'localhost',
-    user: process.env.MYSQL_USER || 'root',
-    // password: 'your_mysql_password',
-    database: process.env.MYSQL_DATABASE || 'files',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-console.log(`Connecting to MySQL with the following parameters:`);
-console.log(`Host: ${process.env.MYSQL_HOST}`);
-console.log(`User: ${process.env.MYSQL_USER}`);
-console.log(`Database: ${process.env.MYSQL_DATABASE}`);
-
-
-
-
-// MySQL connection
 // const pool = mysql.createPool({
 //     host: process.env.MYSQL_HOST || 'localhost',
 //     user: process.env.MYSQL_USER || 'root',
-//     password: process.env.MYSQL_PASSWORD || '',
+//     // password: 'your_mysql_password',
 //     database: process.env.MYSQL_DATABASE || 'files',
 //     waitForConnections: true,
 //     connectionLimit: 10,
 //     queueLimit: 0
 // });
+
+
+const pool = mysql.createPool({
+    host: process.env.MYSQL_HOST || 'srv1391.hstgr.io',
+    user: process.env.MYSQL_USER || 'u858543158_techguideDB',
+    password: process.env.MYSQL_PASSWORD || 'WGH^ACq1@5vD',
+    database: process.env.MYSQL_DATABASE || 'u858543158_files',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
 
 
 
@@ -63,6 +55,7 @@ app.get('/test-db', async (req, res) => {
         res.status(500).json({ message: 'Database connection failed', error: err.message });
     }
 });
+
 
 // Route to get data from MySQL
 app.get('/data', async (req, res) => {
@@ -97,6 +90,7 @@ app.post('/submit', async (req, res) => {
     }
 });
 
+
 // Endpoint to get a file by ID
 app.get('/data/:_id', async (req, res) => {
     try {
@@ -117,6 +111,7 @@ app.get('/data/:_id', async (req, res) => {
 });
 
 
+
 // Delete data by ID
 app.delete('/data/:_id', async (req, res) => {
     try {
@@ -135,6 +130,8 @@ app.delete('/data/:_id', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+
 
 // Update data by ID
 app.put('/data/:_id', async (req, res) => {
@@ -218,6 +215,7 @@ app.get('/data/sjt/:subjobtitle', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 // Start the server
 const port = process.env.PORT || 3000;
