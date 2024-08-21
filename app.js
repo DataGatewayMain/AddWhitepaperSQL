@@ -79,7 +79,7 @@ app.post('/submit', async (req, res) => {
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,check) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
+            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,check) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
             [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,check]
         );
 
