@@ -71,16 +71,16 @@ app.get('/data', async (req, res) => {
 // Route to upload a file and save details to MySQL
 app.post('/submit', async (req, res) => {
     try {
-        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,check} = req.body;
+        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle} = req.body;
 
         // Log the file details
         console.log('File details:', {
-            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,check
+            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,check) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
-            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,check]
+            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
+            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle]
         );
 
         res.json({ message: 'File uploaded successfully', file: { _id: result.insertId, ...req.body } });
@@ -140,8 +140,8 @@ app.put('/data/:_id', async (req, res) => {
         const newData = req.body; // Updated data
 
         const [result] = await pool.query(
-            'UPDATE files SET summarizedContent = ?, campaignId = ?, campaignName = ?, _id = ?, whitepaperHeading = ?, imagedomain = ?, Categories = ?, jobtitle = ?, wpimg = ?, pdfUrl = ?, privacylink = ? ,check = ? WHERE _id = ?',
-            [newData.summarizedContent, newData.campaignId, newData.campaignName, newData._id, newData.whitepaperHeading, newData.imagedomain, newData.Categories, newData.jobtitle, newData.wpimg, newData.pdfUrl, newData.privacylink ,newData.check]
+            'UPDATE files SET summarizedContent = ?, campaignId = ?, campaignName = ?, _id = ?, whitepaperHeading = ?, imagedomain = ?, Categories = ?, jobtitle = ?, wpimg = ?, pdfUrl = ?, privacylink = ?  WHERE _id = ?',
+            [newData.summarizedContent, newData.campaignId, newData.campaignName, newData._id, newData.whitepaperHeading, newData.imagedomain, newData.Categories, newData.jobtitle, newData.wpimg, newData.pdfUrl, newData.privacylink ]
         );
 
         if (result.affectedRows === 0) {
