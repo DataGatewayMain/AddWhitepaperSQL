@@ -68,19 +68,18 @@ app.get('/data', async (req, res) => {
     }
 });
 
-// Route to upload a file and save details to MySQL
 app.post('/submit', async (req, res) => {
     try {
-        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle} = req.body;
+        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6 } = req.body;
 
         // Log the file details
         console.log('File details:', {
-            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle
+            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
-            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle]
+            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)',
+            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6]
         );
 
         res.json({ message: 'File uploaded successfully', file: { _id: result.insertId, ...req.body } });
