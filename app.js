@@ -234,6 +234,19 @@ app.get('/data/sjt/:subjobtitle', async (req, res) => {
     }
 });
 
+   //privacy Routes
+   app.post("/privacywebform", async (req, res) => {
+    try {
+     
+      const { country, firstName, lastName, email, requestDetails,phone,captcha,agreePolicy } = req.body;    
+      const query = `INSERT INTO privacy (country, firstName, lastName, email, requestDetails,phone,captcha,agreePolicy) VALUES (?, ?, ?, ?, ?, ?,?,?)`;
+      const [result] = await pool.query(query, [country, firstName, lastName, email, requestDetails,phone,captcha,agreePolicy]);
+      res.json({ country, firstName, lastName, email, requestDetails,phone,captcha,agreePolicy });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 
 // Start the server
 const port = process.env.PORT || 3000;
