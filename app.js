@@ -78,7 +78,7 @@ app.post('/submit', async (req, res) => {
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)',
             [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin]
         );
 
