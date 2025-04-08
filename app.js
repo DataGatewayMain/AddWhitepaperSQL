@@ -70,16 +70,16 @@ app.get('/data', async (req, res) => {
 
 app.post('/submit', async (req, res) => {
     try {
-        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6 } = req.body;
+        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin } = req.body;
 
         // Log the file details
         console.log('File details:', {
-            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6
+            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)',
-            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6]
+            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)',
+            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6,que7,que8,que9,que10,que11,que12,que13,que14,que15,langoptin,extraoptin]
         );
 
         res.json({ message: 'File uploaded successfully', file: { _id: result.insertId, ...req.body } });
