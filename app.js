@@ -70,19 +70,37 @@ app.get('/data', async (req, res) => {
 
 app.post('/submit', async (req, res) => {
     try {
-        const { summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6 } = req.body;
+        const {
+            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain,
+            wpimg, Categories, jobtitle, pdfUrl, privacylink, faviconurl, subjobtitle,
+            optin, checks, langoptin, extraoptin, questions,unsubscribe
+        } = req.body;
 
-        // Log the file details
+        // Log the incoming request
         console.log('File details:', {
-            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, wpimg, Categories, jobtitle, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6
+            summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain,
+            wpimg, Categories, jobtitle, pdfUrl, privacylink, faviconurl, subjobtitle,
+            optin, checks, langoptin, extraoptin, questions,unsubscribe
         });
 
         const [result] = await pool.query(
-            'INSERT INTO files (summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)',
-            [summarizedContent, campaignId, campaignName, _id, whitepaperHeading, imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,faviconurl,subjobtitle,optin,checks,que1,que2,que3,que4,que5,que6]
+            `INSERT INTO files (
+                summarizedContent, campaignId, campaignName, _id, whitepaperHeading,
+                imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,
+                faviconurl, subjobtitle, optin, checks, langoptin, extraoptin, questions,unsubscribe
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
+            [
+                summarizedContent, campaignId, campaignName, _id, whitepaperHeading,
+                imagedomain, Categories, jobtitle, wpimg, pdfUrl, privacylink,
+                faviconurl, subjobtitle, optin, checks, langoptin, extraoptin,
+                JSON.stringify(questions),unsubscribe
+            ]
         );
 
-        res.json({ message: 'File uploaded successfully', file: { _id: result.insertId, ...req.body } });
+        res.json({
+            message: 'File uploaded successfully',
+            file: { _id: result.insertId, ...req.body }
+        });
     } catch (err) {
         console.error('Error uploading file:', err);
         res.status(500).send('Server error');
