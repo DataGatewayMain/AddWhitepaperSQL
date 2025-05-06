@@ -118,7 +118,7 @@ app.post('/submit', async (req, res) => {
      //   const [rows] = await pool.query('SELECT * FROM files WHERE _id = ?', [fileId]);
 
      // if (rows.length === 0) {
-           return res.status(404).send('File not found');
+           // return res.status(404).send('File not found');
       //  }
 
      //    res.json(rows[0]);
