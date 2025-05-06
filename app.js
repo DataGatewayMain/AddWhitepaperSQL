@@ -110,23 +110,23 @@ app.post('/submit', async (req, res) => {
 
 
 // Endpoint to get a file by ID
-app.get('/data/:_id', async (req, res) => {
-    try {
-       const fileId = req.params._id;
-        console.log(`Fetching file with ID: ${fileId}`);
+//app.get('/data/:_id', async (req, res) => {
+ //   try {
+    //   const fileId = req.params._id;
+    //    console.log(`Fetching file with ID: ${fileId}`);
 
-        const [rows] = await pool.query('SELECT * FROM files WHERE _id = ?', [fileId]);
+     //   const [rows] = await pool.query('SELECT * FROM files WHERE _id = ?', [fileId]);
 
-      if (rows.length === 0) {
+     // if (rows.length === 0) {
            return res.status(404).send('File not found');
-        }
+      //  }
 
-         res.json(rows[0]);
-    } catch (err) {
-        console.error(err.message);
-       res.status(500).send('Server error');
-   }
- });
+     //    res.json(rows[0]);
+  //  } catch (err) {
+      //  console.error(err.message);
+      // res.status(500).send('Server error');
+  // }
+ //});
 
 
 app.get('/data/:whitepaperHeading', async (req, res) => {
