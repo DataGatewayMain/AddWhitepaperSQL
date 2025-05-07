@@ -278,7 +278,7 @@ const getEmailTemplate = (firstName, whitepaperHeading,campaignName,id) => `
     from <strong>${campaignName}</strong>.
   </p>
   <p>We hope you find it insightful and valuable.</p>
-  <a href="http://localhost:4200/subscribe?id=${id}" download style="background-color: #0078d4; color: white; padding: 10px 20px; 
+  <a href="https://thetechnicalguide.net/subscribe?id=${id}" download style="background-color: #0078d4; color: white; padding: 10px 20px; 
      text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px;">
      Download Whitepaper
   </a>
