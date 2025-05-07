@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
 const mysql = require('mysql2/promise');
+const nodemailer = require('nodemailer');
 
 const app = express();
 
@@ -263,6 +264,68 @@ app.get('/data/sjt/:subjobtitle', async (req, res) => {
       res.json({ country, firstName, lastName, email, requestDetails,phone,captcha,agreePolicy });
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  });
+
+
+  // HTML Email Template Function
+const getEmailTemplate = (firstName, whitepaperHeading,campaignName,id) => `
+<div style="font-family: Arial, sans-serif; color: #333;">
+  <h2 style="color: #0078d4;">Hi ${firstName},</h2>
+  <p>
+    Thank you for downloading 
+    "<strong>${whitepaperHeading}</strong>" 
+    from <strong>${campaignName}</strong>.
+  </p>
+  <p>We hope you find it insightful and valuable.</p>
+  <a href="http://localhost:4200/subscribe?id=${id}" download style="background-color: #0078d4; color: white; padding: 10px 20px; 
+     text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px;">
+     Download Whitepaper
+  </a>
+  <br><br>
+  <p>Best regards,</p>
+  <p><strong>Technical Guide</strong><br>
+  <a href="https://thetechnicalguide.net/">https://thetechnicalguide.net/</a></p>
+</div>
+`;
+
+
+// POST route to send email
+app.post('/send-email', async (req, res) => {
+    const { email, whitepaperHeading ,campaignName,id} = req.body;
+  
+    // Extract first name from email
+    const firstName = email.split('@')[0];
+  
+    // Configure Nodemailer transporter
+      const transporter = nodemailer.createTransport({
+        host: 'smtppro.zoho.in',
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+          user: 'noreply@datagateway.in',
+          pass: 'Apple7620@'
+        }
+    });
+
+    const mailOptions = {
+        from: '"Technical Guide" <noreply@datagateway.in>',
+        to: email,
+        subject: `Your Whitepaper Download from Technical Guide.`,
+        html: getEmailTemplate(firstName, whitepaperHeading,campaignName,id),
+        envelope: {
+          from: 'noreply@datagateway.in',
+          to: email,
+        },
+      };
+      
+  
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: 'Email sent successfully' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to send email' });
     }
   });
 
