@@ -271,7 +271,7 @@ app.get('/data/sjt/:subjobtitle', async (req, res) => {
   // HTML Email Template Function
 const getEmailTemplate = (firstName, whitepaperHeading,campaignName,id) => `
 <div style="font-family: Arial, sans-serif; color: #333;">
-  <h2 style="color: #0078d4;">Hi ${firstName},</h2>
+  <h2>Hi ${firstName},</h2>
   <p>
     Thank you for downloading 
     "<strong>${whitepaperHeading}</strong>" 
@@ -292,10 +292,10 @@ const getEmailTemplate = (firstName, whitepaperHeading,campaignName,id) => `
 
 // POST route to send email
 app.post('/send-email', async (req, res) => {
-    const { email, whitepaperHeading ,campaignName,id} = req.body;
+    const { Name,email, whitepaperHeading ,campaignName,id} = req.body;
   
     // Extract first name from email
-    const firstName = email.split('@')[0];
+    const firstName = Name.split(' ')[0];
   
     // Configure Nodemailer transporter
       const transporter = nodemailer.createTransport({
@@ -317,8 +317,7 @@ app.post('/send-email', async (req, res) => {
           from: 'noreply@datagateway.in',
           to: email,
         },
-      };
-      
+      };      
   
     try {
       await transporter.sendMail(mailOptions);
@@ -328,7 +327,6 @@ app.post('/send-email', async (req, res) => {
       res.status(500).json({ error: 'Failed to send email' });
     }
   });
-
 
 // Start the server
 const port = process.env.PORT || 3000;
